@@ -112,13 +112,3 @@ Content-Type: application/json
 Contributions are welcome! Please open issues or submit pull requests for bug fixes and enhancements.
 
 ---
-
-## License
-
-MIT License © 2025 Your Name
-
----
-
-## Contact
-
-Created by Your Name — [your.email@example.com](mailto:your.email@example.com)
