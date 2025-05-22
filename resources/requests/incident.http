@@ -1,0 +1,11 @@
+### Add a new incident
+POST http://localhost:8080/incident/add
+Content-Type: application/json
+
+{
+  "title": "Suspicious activity near park",
+  "description": "Saw someone attempting to break into a bike rack.",
+  "category": "theft",
+  "latitude": 47.1585,
+  "longitude": 27.6014
+}

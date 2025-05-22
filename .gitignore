@@ -1,0 +1,38 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+
+# Cargo lockfile (optional: keep it if this is a binary project)
+/Cargo.lock
+
+# IntelliJ/RustRover IDE files
+/.idea/
+/.idea/*
+
+# IntelliJ project files
+*.iml
+*.iws
+*.ipr
+
+# User-specific files (local workspace settings)
+*.iml
+*.iws
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/shelf
+
+# MacOS system files (optional)
+.DS_Store
+
+# Windows system files (optional)
+Thumbs.db
+
+# VSCode settings if you also use it
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
