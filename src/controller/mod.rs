@@ -1,1 +1,0 @@
-pub mod incident_controller;

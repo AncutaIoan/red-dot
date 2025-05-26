@@ -1,16 +1,19 @@
-mod repository;
+mod state;
 mod models;
-mod controller;
+mod handler;
 mod error;
+mod service;
+mod repository;
 
 use std::error::Error;
 use actix_identity::IdentityMiddleware;
-use actix_web::{middleware::Logger, App, HttpServer, web::Data};
+use actix_web::{middleware::Logger, App, HttpServer, web::Data, web};
 use dotenv::dotenv;
 use sqlx::PgPool;
 use actix_governor::{Governor, GovernorConfig, GovernorConfigBuilder, PeerIpKeyExtractor};
 use actix_governor::governor::middleware::NoOpMiddleware;
-use crate::repository::app_state::AppState;
+use crate::handler::incident_handler::add_incident;
+use crate::state::app_state::AppState;
 
 #[actix_web::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -19,16 +22,20 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     let app_state = create_app_state().await?;
     let governor_config = create_ip_governor();
+    let server_address = "127.0.0.1:8080";
 
     HttpServer::new(move || {
-        App::new()
-            .app_data(app_state.clone())
-            .wrap(IdentityMiddleware::default())
-            .wrap(Logger::default())
-            .wrap(Governor::new(&governor_config))
-            .service(controller::incident_controller::add_incident)
-    })
-        .bind("127.0.0.1:8080")?
+            App::new()
+                .wrap(IdentityMiddleware::default())
+                .wrap(Logger::default())
+                .wrap(Governor::new(&governor_config))
+                .service(
+                    web::scope("/incidents")
+                        .app_data(Data::new(app_state.incident_state.clone()))
+                        .service(add_incident)
+                )
+        })
+        .bind(server_address)?
         .run()
         .await?;
 

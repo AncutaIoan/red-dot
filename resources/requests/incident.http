@@ -1,5 +1,5 @@
 ### Add a new incident
-POST http://localhost:8080/incident/add
+POST http://localhost:8080/incidents/add
 Content-Type: application/json
 
 {
